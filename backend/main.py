@@ -7,9 +7,8 @@ from contextlib import asynccontextmanager
 from typing import Optional
 
 import uvicorn
-import websockets
 from dotenv import load_dotenv
-from fastapi import FastAPI, WebSocket
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from groq import Groq
 from pydantic import BaseModel
@@ -19,10 +18,8 @@ load_dotenv()
 # ── Config ────────────────────────────────────────────────────────────────────
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
 GROQ_MODEL   = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
-WS_HOST      = os.getenv("WS_HOST", "0.0.0.0")
-WS_PORT      = int(os.getenv("WS_PORT", "8080"))
 API_HOST     = os.getenv("API_HOST", "0.0.0.0")
-API_PORT     = int(os.getenv("API_PORT", "8000"))
+API_PORT     = int(os.getenv("PORT", os.getenv("API_PORT", "8000")))  # Railway inject $PORT
 
 SYSTEM_PROMPT = """You are a Minecraft Bedrock Edition command expert.
 When the user describes a building or structure, respond with ONLY valid JSON in this exact format:
@@ -43,7 +40,7 @@ Rules:
 - Respond with ONLY the JSON object, no explanation, no markdown, no code fences"""
 
 # ── Global state ──────────────────────────────────────────────────────────────
-minecraft_ws: Optional[websockets.WebSocketServerProtocol] = None
+minecraft_ws: Optional[WebSocket] = None
 pending_responses: dict[str, asyncio.Future] = {}
 build_log: list[dict] = []
 
@@ -51,7 +48,7 @@ build_log: list[dict] = []
 groq_client = Groq(api_key=GROQ_API_KEY)
 
 
-# ── WebSocket server (Minecraft side) ─────────────────────────────────────────
+# ── Helpers ───────────────────────────────────────────────────────────────────
 def make_command_packet(command: str, request_id: str) -> str:
     """Build the JSON packet format Minecraft Bedrock WebSocket expects."""
     return json.dumps({
@@ -69,29 +66,13 @@ def make_command_packet(command: str, request_id: str) -> str:
     })
 
 
-async def minecraft_handler(websocket: websockets.WebSocketServerProtocol):
-    """Handle a Minecraft Bedrock client connection."""
-    global minecraft_ws
-    minecraft_ws = websocket
-    client_addr = websocket.remote_address
-    print(f"[WS] Minecraft connected from {client_addr}")
-
-    try:
-        async for raw in websocket:
-            try:
-                packet = json.loads(raw)
-                request_id = packet.get("header", {}).get("requestId", "")
-                if request_id and request_id in pending_responses:
-                    fut = pending_responses[request_id]
-                    if not fut.done():
-                        fut.set_result(packet)
-            except json.JSONDecodeError:
-                pass
-    except websockets.exceptions.ConnectionClosed:
-        print(f"[WS] Minecraft disconnected from {client_addr}")
-    finally:
-        if minecraft_ws is websocket:
-            minecraft_ws = None
+def clean_command(cmd: str) -> str:
+    """Strip leading slash and 'execute at X run' wrappers if present."""
+    cmd = cmd.strip()
+    if cmd.startswith("/"):
+        cmd = cmd[1:]
+    cmd = re.sub(r"^execute\s+at\s+\S+\s+run\s+", "", cmd, flags=re.IGNORECASE)
+    return cmd.strip()
 
 
 async def send_command(command: str, timeout: float = 10.0) -> dict:
@@ -106,7 +87,7 @@ async def send_command(command: str, timeout: float = 10.0) -> dict:
 
     try:
         packet = make_command_packet(command, request_id)
-        await minecraft_ws.send(packet)
+        await minecraft_ws.send_text(packet)
         response = await asyncio.wait_for(fut, timeout=timeout)
         status_code = response.get("body", {}).get("statusCode", -1)
         status_msg  = response.get("body", {}).get("statusMessage", "")
@@ -117,7 +98,7 @@ async def send_command(command: str, timeout: float = 10.0) -> dict:
         }
     except asyncio.TimeoutError:
         return {"success": False, "error": "Timeout – Minecraft tidak merespons"}
-    except websockets.exceptions.ConnectionClosed:
+    except WebSocketDisconnect:
         return {"success": False, "error": "Koneksi Minecraft terputus saat eksekusi"}
     except Exception as e:
         return {"success": False, "error": str(e)}
@@ -125,22 +106,7 @@ async def send_command(command: str, timeout: float = 10.0) -> dict:
         pending_responses.pop(request_id, None)
 
 
-def clean_command(cmd: str) -> str:
-    """Strip leading slash and 'execute at X run' wrappers if present."""
-    cmd = cmd.strip()
-    # Remove leading slash
-    if cmd.startswith("/"):
-        cmd = cmd[1:]
-    # Remove "execute at @s run " prefix that some models add
-    cmd = re.sub(r"^execute\s+at\s+\S+\s+run\s+", "", cmd, flags=re.IGNORECASE)
-    return cmd.strip()
-
-
 # ── FastAPI app ───────────────────────────────────────────────────────────────
-# ── FastAPI app ───────────────────────────────────────────────────────────────
-
-# 1. TARUH VARIABEL APP DI ATAS SINI
-# (Aku juga menghapus lifespan=lifespan karena fungsinya tidak ada)
 app = FastAPI(title="Minecraft AI Builder")
 
 app.add_middleware(
@@ -150,7 +116,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# 2. BARU PANGGIL ROUTE WEBSOCKET DI BAWAHNYA
+
+class BuildRequest(BaseModel):
+    prompt: str
+
+
+# ── WebSocket endpoint (Minecraft connects here) ──────────────────────────────
 @app.websocket("/ws/minecraft")
 async def minecraft_ws_endpoint(websocket: WebSocket):
     global minecraft_ws
@@ -158,7 +129,35 @@ async def minecraft_ws_endpoint(websocket: WebSocket):
     minecraft_ws = websocket
     print(f"[WS] Minecraft connected from {websocket.client}")
 
-# ── Endpoints ─────────────────────────────────────────────────────────────────
+    try:
+        while True:
+            raw = await websocket.receive_text()
+            try:
+                packet = json.loads(raw)
+                request_id = packet.get("header", {}).get("requestId", "")
+                if request_id and request_id in pending_responses:
+                    fut = pending_responses[request_id]
+                    if not fut.done():
+                        fut.set_result(packet)
+            except json.JSONDecodeError:
+                pass
+    except WebSocketDisconnect:
+        print("[WS] Minecraft disconnected")
+    finally:
+        if minecraft_ws is websocket:
+            minecraft_ws = None
+
+
+# ── HTTP Endpoints ─────────────────────────────────────────────────────────────
+@app.get("/")
+async def root():
+    return {
+        "status": "Minecraft AI Builder is running",
+        "minecraft_connected": minecraft_ws is not None,
+        "endpoints": ["/status", "/build", "/log", "/ws/minecraft"],
+    }
+
+
 @app.get("/status")
 async def get_status():
     return {"connected": minecraft_ws is not None}
@@ -170,7 +169,7 @@ async def build(req: BuildRequest):
     build_log = []
 
     if not GROQ_API_KEY:
-        return {"success": False, "error": "GROQ_API_KEY tidak ditemukan di .env", "log": []}
+        return {"success": False, "error": "GROQ_API_KEY tidak ditemukan", "log": []}
 
     if minecraft_ws is None:
         return {"success": False, "error": "Minecraft belum terhubung. Hubungkan dulu via /connect", "log": []}
@@ -192,7 +191,6 @@ async def build(req: BuildRequest):
 
     # Step 2: Parse JSON response
     try:
-        # Strip markdown code fences if model wraps it anyway
         clean_json = re.sub(r"```(?:json)?|```", "", raw_content).strip()
         data = json.loads(clean_json)
         commands: list[str] = data.get("commands", [])
@@ -223,7 +221,6 @@ async def build(req: BuildRequest):
         }
         results.append(entry)
 
-        # If Minecraft disconnected mid-build, stop
         if not result.get("success") and "terputus" in result.get("error", ""):
             break
 
