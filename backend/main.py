@@ -138,16 +138,12 @@ def clean_command(cmd: str) -> str:
 
 # ── FastAPI app ───────────────────────────────────────────────────────────────
 @asynccontextmanager
-async def lifespan(app: FastAPI):
-    """Start WebSocket server alongside FastAPI."""
-    print(f"[WS] Starting Minecraft WebSocket server on ws://{WS_HOST}:{WS_PORT}")
-    @app.websocket("/ws/minecraft")
-    async def minecraft_ws_endpoint(websocket: WebSocket):
-        await websocket.accept()
-    yield
-    ws_server.close()
-    await ws_server.wait_closed()
-    print("[WS] WebSocket server stopped")
+@app.websocket("/ws/minecraft")
+async def minecraft_ws_endpoint(websocket: WebSocket):
+    global minecraft_ws
+    await websocket.accept()
+    minecraft_ws = websocket
+    print(f"[WS] Minecraft connected from {websocket.client}")
 
 
 app = FastAPI(title="Minecraft AI Builder", lifespan=lifespan)
