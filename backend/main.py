@@ -137,7 +137,6 @@ def clean_command(cmd: str) -> str:
 
 
 # ── FastAPI app ───────────────────────────────────────────────────────────────
-@asynccontextmanager
 @app.websocket("/ws/minecraft")
 async def minecraft_ws_endpoint(websocket: WebSocket):
     global minecraft_ws
