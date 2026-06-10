@@ -9,7 +9,7 @@ from typing import Optional
 import uvicorn
 import websockets
 from dotenv import load_dotenv
-from fastapi import FastAPI
+from fastapi import FastAPI, WebSocket
 from fastapi.middleware.cors import CORSMiddleware
 from groq import Groq
 from pydantic import BaseModel
@@ -137,15 +137,11 @@ def clean_command(cmd: str) -> str:
 
 
 # ── FastAPI app ───────────────────────────────────────────────────────────────
-@app.websocket("/ws/minecraft")
-async def minecraft_ws_endpoint(websocket: WebSocket):
-    global minecraft_ws
-    await websocket.accept()
-    minecraft_ws = websocket
-    print(f"[WS] Minecraft connected from {websocket.client}")
+# ── FastAPI app ───────────────────────────────────────────────────────────────
 
-
-app = FastAPI(title="Minecraft AI Builder", lifespan=lifespan)
+# 1. TARUH VARIABEL APP DI ATAS SINI
+# (Aku juga menghapus lifespan=lifespan karena fungsinya tidak ada)
+app = FastAPI(title="Minecraft AI Builder")
 
 app.add_middleware(
     CORSMiddleware,
@@ -154,10 +150,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
-class BuildRequest(BaseModel):
-    prompt: str
-
+# 2. BARU PANGGIL ROUTE WEBSOCKET DI BAWAHNYA
+@app.websocket("/ws/minecraft")
+async def minecraft_ws_endpoint(websocket: WebSocket):
+    global minecraft_ws
+    await websocket.accept()
+    minecraft_ws = websocket
+    print(f"[WS] Minecraft connected from {websocket.client}")
 
 # ── Endpoints ─────────────────────────────────────────────────────────────────
 @app.get("/status")
