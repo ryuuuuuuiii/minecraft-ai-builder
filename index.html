@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,31 +10,38 @@
     @import url('https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&display=swap');
 
     /* ── Reset & Base ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --dirt:       #866043;
-      --dirt-dark:  #5C3D1E;
-      --grass:      #5D9E3E;
-      --grass-lit:  #7BC95A;
-      --stone:      #7F7F7F;
-      --stone-dark: #555555;
-      --stone-lit:  #9E9E9E;
-      --wood:       #B8901A;
-      --coal:       #1A1A1A;
-      --sky:        #1A2E4A;
-      --sky-deep:   #0D1B2A;
-      --lava:       #E25822;
-      --gold:       #FFD700;
-      --emerald:    #17C45B;
-      --red-ore:    #C0392B;
-      --diamond:    #5DE8F2;
-      --text-main:  #E8E8E8;
-      --text-dim:   #A0A0A0;
-      --border-px:  2px;
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    html, body {
+    :root {
+      --dirt: #866043;
+      --dirt-dark: #5C3D1E;
+      --grass: #5D9E3E;
+      --grass-lit: #7BC95A;
+      --stone: #7F7F7F;
+      --stone-dark: #555555;
+      --stone-lit: #9E9E9E;
+      --wood: #B8901A;
+      --coal: #1A1A1A;
+      --sky: #1A2E4A;
+      --sky-deep: #0D1B2A;
+      --lava: #E25822;
+      --gold: #FFD700;
+      --emerald: #17C45B;
+      --red-ore: #C0392B;
+      --diamond: #5DE8F2;
+      --text-main: #E8E8E8;
+      --text-dim: #A0A0A0;
+      --border-px: 2px;
+    }
+
+    html,
+    body {
       height: 100%;
       background: var(--sky-deep);
       color: var(--text-main);
@@ -48,7 +56,7 @@
       box-shadow:
         inset 2px 2px 0 var(--stone-lit),
         inset -2px -2px 0 var(--stone-dark),
-        0 4px 16px rgba(0,0,0,0.6);
+        0 4px 16px rgba(0, 0, 0, 0.6);
       background: var(--coal);
     }
 
@@ -70,20 +78,16 @@
 
     .header-grass {
       height: 6px;
-      background: repeating-linear-gradient(
-        90deg,
-        var(--grass) 0px, var(--grass) 16px,
-        var(--grass-lit) 16px, var(--grass-lit) 20px
-      );
+      background: repeating-linear-gradient(90deg,
+          var(--grass) 0px, var(--grass) 16px,
+          var(--grass-lit) 16px, var(--grass-lit) 20px);
     }
 
     .header-dirt {
       height: 10px;
-      background: repeating-linear-gradient(
-        90deg,
-        var(--dirt) 0px, var(--dirt) 14px,
-        var(--dirt-dark) 14px, var(--dirt-dark) 18px
-      );
+      background: repeating-linear-gradient(90deg,
+          var(--dirt) 0px, var(--dirt) 14px,
+          var(--dirt-dark) 14px, var(--dirt-dark) 18px);
     }
 
     .header-inner {
@@ -94,21 +98,18 @@
     }
 
     .logo-block {
-      width: 48px; height: 48px;
+      width: 48px;
+      height: 48px;
       background:
-        repeating-linear-gradient(
-          90deg,
+        repeating-linear-gradient(90deg,
           transparent 0, transparent 12px,
-          rgba(0,0,0,.15) 12px, rgba(0,0,0,.15) 14px
-        ),
-        repeating-linear-gradient(
-          180deg,
+          rgba(0, 0, 0, .15) 12px, rgba(0, 0, 0, .15) 14px),
+        repeating-linear-gradient(180deg,
           transparent 0, transparent 12px,
-          rgba(0,0,0,.15) 12px, rgba(0,0,0,.15) 14px
-        ),
+          rgba(0, 0, 0, .15) 12px, rgba(0, 0, 0, .15) 14px),
         linear-gradient(145deg, #7BC95A, #5D9E3E);
       border: 2px solid #3a6b25;
-      box-shadow: inset 2px 2px 0 rgba(255,255,255,.25), 3px 3px 0 #1a1a1a;
+      box-shadow: inset 2px 2px 0 rgba(255, 255, 255, .25), 3px 3px 0 #1a1a1a;
       flex-shrink: 0;
     }
 
@@ -119,11 +120,13 @@
       color: var(--text-main);
       text-shadow:
         2px 2px 0 #000,
-        -1px -1px 0 rgba(255,255,255,.08);
+        -1px -1px 0 rgba(255, 255, 255, .08);
       line-height: 1;
     }
 
-    h1 span { color: var(--grass-lit); }
+    h1 span {
+      color: var(--grass-lit);
+    }
 
     .tagline {
       font-size: 0.75rem;
@@ -173,7 +176,8 @@
     }
 
     .panel-title .icon {
-      width: 22px; height: 22px;
+      width: 22px;
+      height: 22px;
       display: inline-block;
       background: var(--stone);
       border: 2px solid var(--stone-dark);
@@ -201,7 +205,7 @@
     input[type="text"] {
       background: #111;
       border: 2px solid var(--stone-dark);
-      box-shadow: inset 2px 2px 0 rgba(0,0,0,.4);
+      box-shadow: inset 2px 2px 0 rgba(0, 0, 0, .4);
       color: var(--text-main);
       font-family: 'Share Tech Mono', monospace;
       font-size: 0.9rem;
@@ -235,8 +239,14 @@
       gap: 6px;
     }
 
-    .btn:active { transform: translateY(1px); }
-    .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+    .btn:active {
+      transform: translateY(1px);
+    }
+
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
 
     .btn-stone {
       background: var(--stone);
@@ -246,7 +256,10 @@
         inset -2px -2px 0 var(--stone-dark),
         2px 2px 0 #000;
     }
-    .btn-stone:hover:not(:disabled) { filter: brightness(1.15); }
+
+    .btn-stone:hover:not(:disabled) {
+      filter: brightness(1.15);
+    }
 
     .btn-grass {
       background: var(--grass);
@@ -256,7 +269,10 @@
         inset -2px -2px 0 #3a6b25,
         2px 2px 0 #000;
     }
-    .btn-grass:hover:not(:disabled) { filter: brightness(1.1); }
+
+    .btn-grass:hover:not(:disabled) {
+      filter: brightness(1.1);
+    }
 
     .btn-diamond {
       background: #1a7e8a;
@@ -266,7 +282,10 @@
         inset -2px -2px 0 #0e4f56,
         2px 2px 0 #000;
     }
-    .btn-diamond:hover:not(:disabled) { filter: brightness(1.1); }
+
+    .btn-diamond:hover:not(:disabled) {
+      filter: brightness(1.1);
+    }
 
     .btn-full {
       width: 100%;
@@ -286,7 +305,7 @@
       gap: 10px;
       background: #0a0a0a;
       border: 2px solid var(--stone-dark);
-      box-shadow: inset 2px 2px 0 rgba(0,0,0,.5);
+      box-shadow: inset 2px 2px 0 rgba(0, 0, 0, .5);
       padding: 10px 14px;
     }
 
@@ -308,32 +327,56 @@
     }
 
     .status-dot {
-      width: 10px; height: 10px;
+      width: 10px;
+      height: 10px;
       border: 2px solid #000;
       flex-shrink: 0;
     }
 
-    .status-dot.offline { background: var(--red-ore); }
-    .status-dot.online  { background: var(--emerald);
-      box-shadow: 0 0 6px var(--emerald); }
-    .status-dot.checking { background: var(--gold);
-      animation: blink 0.7s infinite; }
-
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.2; }
+    .status-dot.offline {
+      background: var(--red-ore);
     }
 
-    .status-text { color: var(--text-main); }
-    .status-text.online  { color: var(--emerald); }
-    .status-text.offline { color: #e07070; }
+    .status-dot.online {
+      background: var(--emerald);
+      box-shadow: 0 0 6px var(--emerald);
+    }
+
+    .status-dot.checking {
+      background: var(--gold);
+      animation: blink 0.7s infinite;
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.2;
+      }
+    }
+
+    .status-text {
+      color: var(--text-main);
+    }
+
+    .status-text.online {
+      color: var(--emerald);
+    }
+
+    .status-text.offline {
+      color: #e07070;
+    }
 
     /* ── Prompt area ── */
     textarea {
       width: 100%;
       background: #111;
       border: 2px solid var(--stone-dark);
-      box-shadow: inset 2px 2px 0 rgba(0,0,0,.4);
+      box-shadow: inset 2px 2px 0 rgba(0, 0, 0, .4);
       color: var(--text-main);
       font-family: 'Share Tech Mono', monospace;
       font-size: 0.9rem;
@@ -345,9 +388,13 @@
       transition: border-color 0.15s;
     }
 
-    textarea:focus { border-color: var(--grass); }
+    textarea:focus {
+      border-color: var(--grass);
+    }
 
-    textarea::placeholder { color: #444; }
+    textarea::placeholder {
+      color: #444;
+    }
 
     .prompt-examples {
       display: flex;
@@ -379,7 +426,9 @@
       display: none;
     }
 
-    .log-panel.visible { display: block; }
+    .log-panel.visible {
+      display: block;
+    }
 
     .log-stats {
       display: flex;
@@ -389,12 +438,34 @@
       font-size: 1.2rem;
     }
 
-    .stat { display: flex; flex-direction: column; align-items: center; }
-    .stat-num { font-size: 2rem; line-height: 1; }
-    .stat-num.green  { color: var(--emerald); }
-    .stat-num.red    { color: #e07070; }
-    .stat-num.yellow { color: var(--gold); }
-    .stat-lbl { font-size: 0.7rem; color: var(--text-dim); letter-spacing: 1px; }
+    .stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .stat-num {
+      font-size: 2rem;
+      line-height: 1;
+    }
+
+    .stat-num.green {
+      color: var(--emerald);
+    }
+
+    .stat-num.red {
+      color: #e07070;
+    }
+
+    .stat-num.yellow {
+      color: var(--gold);
+    }
+
+    .stat-lbl {
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      letter-spacing: 1px;
+    }
 
     .log-scroll {
       max-height: 320px;
@@ -403,9 +474,17 @@
       scrollbar-color: var(--stone-dark) #0a0a0a;
     }
 
-    .log-scroll::-webkit-scrollbar { width: 6px; }
-    .log-scroll::-webkit-scrollbar-track { background: #0a0a0a; }
-    .log-scroll::-webkit-scrollbar-thumb { background: var(--stone-dark); }
+    .log-scroll::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .log-scroll::-webkit-scrollbar-track {
+      background: #0a0a0a;
+    }
+
+    .log-scroll::-webkit-scrollbar-thumb {
+      background: var(--stone-dark);
+    }
 
     .log-entry {
       display: flex;
@@ -417,15 +496,42 @@
       transition: background 0.1s;
     }
 
-    .log-entry:hover { background: rgba(255,255,255,.03); }
+    .log-entry:hover {
+      background: rgba(255, 255, 255, .03);
+    }
 
-    .log-entry.success .log-icon { color: var(--emerald); }
-    .log-entry.fail    .log-icon { color: #e07070; }
+    .log-entry.success .log-icon {
+      color: var(--emerald);
+    }
 
-    .log-icon { width: 14px; font-size: 0.9rem; flex-shrink: 0; margin-top: 1px; }
-    .log-idx  { color: var(--stone-lit); min-width: 30px; flex-shrink: 0; }
-    .log-cmd  { color: var(--diamond); flex: 1; word-break: break-all; }
-    .log-msg  { color: var(--text-dim); font-size: 0.72rem; margin-left: 2px; }
+    .log-entry.fail .log-icon {
+      color: #e07070;
+    }
+
+    .log-icon {
+      width: 14px;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .log-idx {
+      color: var(--stone-lit);
+      min-width: 30px;
+      flex-shrink: 0;
+    }
+
+    .log-cmd {
+      color: var(--diamond);
+      flex: 1;
+      word-break: break-all;
+    }
+
+    .log-msg {
+      color: var(--text-dim);
+      font-size: 0.72rem;
+      margin-left: 2px;
+    }
 
     /* ── Thinking / loading ── */
     .thinking {
@@ -433,14 +539,16 @@
       align-items: center;
       gap: 12px;
       padding: 12px 14px;
-      background: rgba(93,158,62,.08);
-      border: 1px solid rgba(93,158,62,.25);
+      background: rgba(93, 158, 62, .08);
+      border: 1px solid rgba(93, 158, 62, .25);
       margin-top: 12px;
       font-size: 0.82rem;
       color: var(--grass-lit);
     }
 
-    .thinking.visible { display: flex; }
+    .thinking.visible {
+      display: flex;
+    }
 
     .pickaxe-spin {
       font-size: 1.2rem;
@@ -449,14 +557,19 @@
     }
 
     @keyframes spin {
-      from { transform: rotate(0deg); }
-      to   { transform: rotate(360deg); }
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     /* ── Error banner ── */
     .error-banner {
       display: none;
-      background: rgba(192,57,43,.15);
+      background: rgba(192, 57, 43, .15);
       border: 2px solid var(--red-ore);
       padding: 10px 14px;
       font-size: 0.82rem;
@@ -466,7 +579,9 @@
       align-items: flex-start;
     }
 
-    .error-banner.visible { display: flex; }
+    .error-banner.visible {
+      display: flex;
+    }
 
     /* ── Footer ── */
     footer {
@@ -482,11 +597,9 @@
     /* ── Divider with pixel art fence ── */
     .mc-divider {
       height: 2px;
-      background: repeating-linear-gradient(
-        90deg,
-        var(--stone-dark) 0px, var(--stone-dark) 8px,
-        transparent 8px, transparent 12px
-      );
+      background: repeating-linear-gradient(90deg,
+          var(--stone-dark) 0px, var(--stone-dark) 8px,
+          transparent 8px, transparent 12px);
       margin: 4px 0;
     }
 
@@ -498,256 +611,273 @@
       transition: opacity 0.3s;
       letter-spacing: 1px;
     }
-    .copy-feedback.show { opacity: 1; }
+
+    .copy-feedback.show {
+      opacity: 1;
+    }
 
     /* ── Responsive ── */
     @media (max-width: 560px) {
-      h1 { font-size: 1.9rem; }
-      .connect-row { flex-direction: column; }
-      .log-stats { gap: 12px; }
+      h1 {
+        font-size: 1.9rem;
+      }
+
+      .connect-row {
+        flex-direction: column;
+      }
+
+      .log-stats {
+        gap: 12px;
+      }
     }
   </style>
 </head>
+
 <body>
-<div class="app-wrapper">
+  <div class="app-wrapper">
 
-  <!-- ── Header ── -->
-  <header>
-    <div class="header-grass"></div>
-    <div class="header-dirt"></div>
-    <div class="header-inner">
-      <div class="logo-block"></div>
-      <div>
-        <h1>Minecraft <span>AI</span> Builder</h1>
-        <div class="tagline">// Describe it. Build it. Instantly. //</div>
-      </div>
-    </div>
-  </header>
-
-  <!-- ── Main ── -->
-  <main>
-
-    <!-- ── STEP 1: Connect ── -->
-    <div class="step-panel">
-      <div class="step-label">▶ Step 1 — Connect Minecraft</div>
-      <div class="panel pixel-box">
-        <div class="panel-title">
-          <span class="icon" style="background: linear-gradient(135deg,#5DE8F2,#1a7e8a)"></span>
-          Hubungkan Minecraft Bedrock ke Server
+    <!-- ── Header ── -->
+    <header>
+      <div class="header-grass"></div>
+      <div class="header-dirt"></div>
+      <div class="header-inner">
+        <div class="logo-block"></div>
+        <div>
+          <h1>Minecraft <span>AI</span> Builder</h1>
+          <div class="tagline">// Describe it. Build it. Instantly. //</div>
         </div>
+      </div>
+    </header>
 
-        <div style="margin-bottom: 12px;">
-          <label for="ipInput">IP Address PC Kamu</label>
-          <div class="connect-row">
-            <div class="input-group">
-              <input type="text" id="ipInput" placeholder="contoh: 192.168.1.10" />
+    <!-- ── Main ── -->
+    <main>
+
+      <!-- ── STEP 1: Connect ── -->
+      <div class="step-panel">
+        <div class="step-label">▶ Step 1 — Connect Minecraft</div>
+        <div class="panel pixel-box">
+          <div class="panel-title">
+            <span class="icon" style="background: linear-gradient(135deg,#5DE8F2,#1a7e8a)"></span>
+            Hubungkan Minecraft Bedrock ke Server
+          </div>
+
+          <div style="margin-bottom: 12px;">
+            <label for="ipInput">IP Address PC Kamu</label>
+            <div class="connect-row">
+              <div class="input-group">
+                <input type="text" id="ipInput" placeholder="contoh: 192.168.1.10" />
+              </div>
+              <button type="button" class="btn btn-stone" id="generateBtn" style="align-self: flex-end; height: 40px;"
+                onclick="generateCommand()">
+                Generate
+              </button>
             </div>
-            <button type="button" class="btn btn-stone" id="generateBtn" style="align-self: flex-end; height: 40px;" onclick="generateCommand()">
-              Generate
+          </div>
+
+          <div style="margin-bottom: 14px;">
+            <label>Command untuk diketik di Minecraft Chat</label>
+            <div class="command-display" id="commandDisplay">
+              <code id="commandText">— masukkan IP lalu klik Generate —</code>
+              <button type="button" class="btn btn-stone" id="copyBtn" style="padding: 6px 12px; font-size:0.95rem;"
+                onclick="copyCommand()" disabled>
+                COPY
+              </button>
+              <span class="copy-feedback" id="copyFeedback">Copied!</span>
+            </div>
+          </div>
+
+          <div class="mc-divider"></div>
+          <div
+            style="margin-top: 12px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+            <div class="status-row">
+              <div class="status-dot offline" id="statusDot"></div>
+              <span>Status Minecraft:</span>
+              <span class="status-text offline" id="statusText">Belum terhubung</span>
+            </div>
+            <button type="button" class="btn btn-stone" style="padding: 5px 14px; font-size:0.9rem;"
+              onclick="checkStatus()">
+              ↻ Refresh
             </button>
           </div>
         </div>
+      </div>
 
-        <div style="margin-bottom: 14px;">
-          <label>Command untuk diketik di Minecraft Chat</label>
-          <div class="command-display" id="commandDisplay">
-            <code id="commandText">— masukkan IP lalu klik Generate —</code>
-            <button type="button" class="btn btn-stone" id="copyBtn" style="padding: 6px 12px; font-size:0.95rem;" onclick="copyCommand()" disabled>
-              COPY
+      <!-- ── STEP 2: Build ── -->
+      <div class="step-panel">
+        <div class="step-label">▶ Step 2 — Describe Your Build</div>
+        <div class="panel pixel-box">
+          <div class="panel-title">
+            <span class="icon" style="background: linear-gradient(135deg, var(--grass-lit), var(--grass))"></span>
+            Deskripsikan Bangunanmu
+          </div>
+
+          <label for="promptArea">Prompt Bangunan</label>
+          <textarea id="promptArea" rows="4"
+            placeholder="Contoh: buatkan rumah kayu 5x5 dengan atap cobblestone dan 4 jendela kaca..."></textarea>
+
+          <div class="prompt-examples">
+            <span class="step-label" style="font-size: 0.7rem; align-self: center;">Contoh:</span>
+            <button type="button" class="example-chip" onclick="useExample(this)">rumah kayu 5x5 dengan atap
+              cobblestone</button>
+            <button type="button" class="example-chip" onclick="useExample(this)">menara batu 3x3 setinggi 10
+              lantai</button>
+            <button type="button" class="example-chip" onclick="useExample(this)">kastil kecil dari cobblestone dengan
+              parit</button>
+            <button type="button" class="example-chip" onclick="useExample(this)">jembatan kayu sepanjang 15
+              blok</button>
+            <button type="button" class="example-chip" onclick="useExample(this)">piramida batu 7x7</button>
+          </div>
+
+          <div style="margin-top: 16px;">
+            <button type="button" class="btn btn-grass btn-full btn-lg" id="buildBtn" onclick="startBuild()">
+              ⚒ BUILD NOW
             </button>
-            <span class="copy-feedback" id="copyFeedback">Copied!</span>
+          </div>
+
+          <div class="thinking" id="thinking">
+            <span class="pickaxe-spin">⛏</span>
+            <span id="thinkingText">Mengirim prompt ke AI...</span>
+          </div>
+
+          <div class="error-banner" id="errorBanner">
+            <span>✕</span>
+            <span id="errorText"></span>
           </div>
         </div>
+      </div>
 
-        <div class="mc-divider"></div>
-        <div style="margin-top: 12px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
-          <div class="status-row">
-            <div class="status-dot offline" id="statusDot"></div>
-            <span>Status Minecraft:</span>
-            <span class="status-text offline" id="statusText">Belum terhubung</span>
+      <!-- ── Build Log ── -->
+      <div class="step-panel log-panel" id="logPanel">
+        <div class="step-label">▶ Build Log</div>
+        <div class="panel pixel-box">
+          <div class="panel-title">
+            <span class="icon" style="background: linear-gradient(135deg, #FFD700, #B8901A)"></span>
+            Hasil Eksekusi
           </div>
-          <button type="button" class="btn btn-stone" style="padding: 5px 14px; font-size:0.9rem;" onclick="checkStatus()">
-            ↻ Refresh
-          </button>
+
+          <div class="log-stats" id="logStats"></div>
+          <div class="mc-divider" style="margin-bottom: 12px;"></div>
+          <div class="log-scroll" id="logScroll"></div>
         </div>
       </div>
-    </div>
 
-    <!-- ── STEP 2: Build ── -->
-    <div class="step-panel">
-      <div class="step-label">▶ Step 2 — Describe Your Build</div>
-      <div class="panel pixel-box">
-        <div class="panel-title">
-          <span class="icon" style="background: linear-gradient(135deg, var(--grass-lit), var(--grass))"></span>
-          Deskripsikan Bangunanmu
-        </div>
+    </main>
 
-        <label for="promptArea">Prompt Bangunan</label>
-        <textarea
-          id="promptArea"
-          rows="4"
-          placeholder="Contoh: buatkan rumah kayu 5x5 dengan atap cobblestone dan 4 jendela kaca..."
-        ></textarea>
+    <!-- ── Footer ── -->
+    <footer>
+      <span>MINECRAFT AI BUILDER // BEDROCK EDITION</span>
+      <span>API :8000 · WS :8080</span>
+    </footer>
 
-        <div class="prompt-examples">
-          <span class="step-label" style="font-size: 0.7rem; align-self: center;">Contoh:</span>
-          <button type="button" class="example-chip" onclick="useExample(this)">rumah kayu 5x5 dengan atap cobblestone</button>
-          <button type="button" class="example-chip" onclick="useExample(this)">menara batu 3x3 setinggi 10 lantai</button>
-          <button type="button" class="example-chip" onclick="useExample(this)">kastil kecil dari cobblestone dengan parit</button>
-          <button type="button" class="example-chip" onclick="useExample(this)">jembatan kayu sepanjang 15 blok</button>
-          <button type="button" class="example-chip" onclick="useExample(this)">piramida batu 7x7</button>
-        </div>
+  </div>
 
-        <div style="margin-top: 16px;">
-          <button type="button" class="btn btn-grass btn-full btn-lg" id="buildBtn" onclick="startBuild()">
-            ⚒ BUILD NOW
-          </button>
-        </div>
+  <script>
+    const API_BASE = 'minecraft-ai-builder-production.up.railway.app';
+    let statusInterval = null;
 
-        <div class="thinking" id="thinking">
-          <span class="pickaxe-spin">⛏</span>
-          <span id="thinkingText">Mengirim prompt ke AI...</span>
-        </div>
-
-        <div class="error-banner" id="errorBanner">
-          <span>✕</span>
-          <span id="errorText"></span>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── Build Log ── -->
-    <div class="step-panel log-panel" id="logPanel">
-      <div class="step-label">▶ Build Log</div>
-      <div class="panel pixel-box">
-        <div class="panel-title">
-          <span class="icon" style="background: linear-gradient(135deg, #FFD700, #B8901A)"></span>
-          Hasil Eksekusi
-        </div>
-
-        <div class="log-stats" id="logStats"></div>
-        <div class="mc-divider" style="margin-bottom: 12px;"></div>
-        <div class="log-scroll" id="logScroll"></div>
-      </div>
-    </div>
-
-  </main>
-
-  <!-- ── Footer ── -->
-  <footer>
-    <span>MINECRAFT AI BUILDER // BEDROCK EDITION</span>
-    <span>API :8000 · WS :8080</span>
-  </footer>
-
-</div>
-
-<script>
-  const API_BASE = 'http://localhost:8000';
-  let statusInterval = null;
-
-  // ── Status polling ─────────────────────────────────────────────────────────
-  function setStatus(state) {
-    const dot  = document.getElementById('statusDot');
-    const text = document.getElementById('statusText');
-    dot.className  = 'status-dot ' + state;
-    text.className = 'status-text ' + state;
-    if (state === 'online')    text.textContent = 'Terhubung ✓';
-    if (state === 'offline')   text.textContent = 'Belum terhubung';
-    if (state === 'checking')  text.textContent = 'Mengecek…';
-  }
-
-  async function checkStatus() {
-    setStatus('checking');
-    try {
-      const res  = await fetch(`${API_BASE}/status`);
-      const data = await res.json();
-      setStatus(data.connected ? 'online' : 'offline');
-    } catch {
-      setStatus('offline');
-    }
-  }
-
-  // Auto-refresh every 5 seconds
-  checkStatus();
-  statusInterval = setInterval(checkStatus, 5000);
-
-  // ── Generate connect command ───────────────────────────────────────────────
-  function generateCommand() {
-    const ip  = document.getElementById('ipInput').value.trim();
-    const cmd = ip ? `/connect ws://${ip}:8080` : '/connect ws://YOUR_IP:8080';
-    document.getElementById('commandText').textContent = cmd;
-    document.getElementById('copyBtn').disabled = !ip;
-  }
-
-  document.getElementById('ipInput').addEventListener('keyup', generateCommand);
-
-  // ── Copy command ──────────────────────────────────────────────────────────
-  function copyCommand() {
-    const text = document.getElementById('commandText').textContent;
-    navigator.clipboard.writeText(text).then(() => {
-      const fb = document.getElementById('copyFeedback');
-      fb.classList.add('show');
-      setTimeout(() => fb.classList.remove('show'), 1800);
-    });
-  }
-
-  // ── Example chips ─────────────────────────────────────────────────────────
-  function useExample(el) {
-    document.getElementById('promptArea').value = el.textContent;
-    document.getElementById('promptArea').focus();
-  }
-
-  // ── Build ──────────────────────────────────────────────────────────────────
-  async function startBuild() {
-    const prompt = document.getElementById('promptArea').value.trim();
-    if (!prompt) {
-      showError('Masukkan deskripsi bangunan terlebih dahulu.');
-      return;
+    // ── Status polling ─────────────────────────────────────────────────────────
+    function setStatus(state) {
+      const dot = document.getElementById('statusDot');
+      const text = document.getElementById('statusText');
+      dot.className = 'status-dot ' + state;
+      text.className = 'status-text ' + state;
+      if (state === 'online') text.textContent = 'Terhubung ✓';
+      if (state === 'offline') text.textContent = 'Belum terhubung';
+      if (state === 'checking') text.textContent = 'Mengecek…';
     }
 
-    hideError();
-    showThinking('Mengirim prompt ke Groq AI…');
-    setBuildDisabled(true);
+    async function checkStatus() {
+      setStatus('checking');
+      try {
+        const res = await fetch(`${API_BASE}/status`);
+        const data = await res.json();
+        setStatus(data.connected ? 'online' : 'offline');
+      } catch {
+        setStatus('offline');
+      }
+    }
 
-    try {
-      const res  = await fetch(`${API_BASE}/build`, {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ prompt }),
+    // Auto-refresh every 5 seconds
+    checkStatus();
+    statusInterval = setInterval(checkStatus, 5000);
+
+    // ── Generate connect command ───────────────────────────────────────────────
+    function generateCommand() {
+      const ip = document.getElementById('ipInput').value.trim();
+      const cmd = ip ? `/connect ws://${ip}:8080` : '/connect ws://YOUR_IP:8080';
+      document.getElementById('commandText').textContent = cmd;
+      document.getElementById('copyBtn').disabled = !ip;
+    }
+
+    document.getElementById('ipInput').addEventListener('keyup', generateCommand);
+
+    // ── Copy command ──────────────────────────────────────────────────────────
+    function copyCommand() {
+      const text = document.getElementById('commandText').textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const fb = document.getElementById('copyFeedback');
+        fb.classList.add('show');
+        setTimeout(() => fb.classList.remove('show'), 1800);
       });
-      const data = await res.json();
+    }
 
-      if (!data.success && data.log === undefined) {
-        showError(data.error || 'Terjadi kesalahan pada server.');
+    // ── Example chips ─────────────────────────────────────────────────────────
+    function useExample(el) {
+      document.getElementById('promptArea').value = el.textContent;
+      document.getElementById('promptArea').focus();
+    }
+
+    // ── Build ──────────────────────────────────────────────────────────────────
+    async function startBuild() {
+      const prompt = document.getElementById('promptArea').value.trim();
+      if (!prompt) {
+        showError('Masukkan deskripsi bangunan terlebih dahulu.');
         return;
       }
 
-      if (data.log) {
-        showThinking('Mengirim command ke Minecraft…');
-        renderLog(data);
-      }
+      hideError();
+      showThinking('Mengirim prompt ke Groq AI…');
+      setBuildDisabled(true);
 
-      if (!data.success && !data.log?.length) {
-        showError(data.error || 'Terjadi kesalahan.');
-      }
+      try {
+        const res = await fetch(`${API_BASE}/build`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt }),
+        });
+        const data = await res.json();
 
-    } catch (err) {
-      showError('Tidak dapat terhubung ke server backend. Pastikan python main.py sudah berjalan.');
-    } finally {
-      hideThinking();
-      setBuildDisabled(false);
+        if (!data.success && data.log === undefined) {
+          showError(data.error || 'Terjadi kesalahan pada server.');
+          return;
+        }
+
+        if (data.log) {
+          showThinking('Mengirim command ke Minecraft…');
+          renderLog(data);
+        }
+
+        if (!data.success && !data.log?.length) {
+          showError(data.error || 'Terjadi kesalahan.');
+        }
+
+      } catch (err) {
+        showError('Tidak dapat terhubung ke server backend. Pastikan python main.py sudah berjalan.');
+      } finally {
+        hideThinking();
+        setBuildDisabled(false);
+      }
     }
-  }
 
-  // ── Render log ─────────────────────────────────────────────────────────────
-  function renderLog(data) {
-    const panel  = document.getElementById('logPanel');
-    const stats  = document.getElementById('logStats');
-    const scroll = document.getElementById('logScroll');
+    // ── Render log ─────────────────────────────────────────────────────────────
+    function renderLog(data) {
+      const panel = document.getElementById('logPanel');
+      const stats = document.getElementById('logStats');
+      const scroll = document.getElementById('logScroll');
 
-    panel.classList.add('visible');
+      panel.classList.add('visible');
 
-    stats.innerHTML = `
+      stats.innerHTML = `
       <div class="stat">
         <span class="stat-num yellow">${data.total}</span>
         <span class="stat-lbl">TOTAL</span>
@@ -762,55 +892,56 @@
       </div>
     `;
 
-    scroll.innerHTML = '';
-    data.log.forEach(entry => {
-      const div = document.createElement('div');
-      div.className = `log-entry ${entry.success ? 'success' : 'fail'}`;
-      div.innerHTML = `
+      scroll.innerHTML = '';
+      data.log.forEach(entry => {
+        const div = document.createElement('div');
+        div.className = `log-entry ${entry.success ? 'success' : 'fail'}`;
+        div.innerHTML = `
         <span class="log-icon">${entry.success ? '✓' : '✕'}</span>
-        <span class="log-idx">#${String(entry.index).padStart(3,'0')}</span>
+        <span class="log-idx">#${String(entry.index).padStart(3, '0')}</span>
         <span class="log-cmd">${escHtml(entry.command)}</span>
         ${entry.message ? `<span class="log-msg">${escHtml(entry.message)}</span>` : ''}
       `;
-      scroll.appendChild(div);
-    });
+        scroll.appendChild(div);
+      });
 
-    // Scroll to log
-    panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
+      // Scroll to log
+      panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
 
-  // ── UI helpers ─────────────────────────────────────────────────────────────
-  function setBuildDisabled(v) {
-    document.getElementById('buildBtn').disabled = v;
-  }
+    // ── UI helpers ─────────────────────────────────────────────────────────────
+    function setBuildDisabled(v) {
+      document.getElementById('buildBtn').disabled = v;
+    }
 
-  function showThinking(msg) {
-    const el = document.getElementById('thinking');
-    document.getElementById('thinkingText').textContent = msg;
-    el.classList.add('visible');
-  }
+    function showThinking(msg) {
+      const el = document.getElementById('thinking');
+      document.getElementById('thinkingText').textContent = msg;
+      el.classList.add('visible');
+    }
 
-  function hideThinking() {
-    document.getElementById('thinking').classList.remove('visible');
-  }
+    function hideThinking() {
+      document.getElementById('thinking').classList.remove('visible');
+    }
 
-  function showError(msg) {
-    const el = document.getElementById('errorBanner');
-    document.getElementById('errorText').textContent = msg;
-    el.classList.add('visible');
-  }
+    function showError(msg) {
+      const el = document.getElementById('errorBanner');
+      document.getElementById('errorText').textContent = msg;
+      el.classList.add('visible');
+    }
 
-  function hideError() {
-    document.getElementById('errorBanner').classList.remove('visible');
-  }
+    function hideError() {
+      document.getElementById('errorBanner').classList.remove('visible');
+    }
 
-  function escHtml(s) {
-    return String(s)
-      .replace(/&/g,'&amp;')
-      .replace(/</g,'&lt;')
-      .replace(/>/g,'&gt;')
-      .replace(/"/g,'&quot;');
-  }
-</script>
+    function escHtml(s) {
+      return String(s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+  </script>
 </body>
+
 </html>
